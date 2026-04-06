@@ -1,0 +1,24 @@
+{
+  "name": "odin-project-hashmap",
+  "version": "1.0.0",
+  "description": "The Odin Project - Project: HashMap",
+  "homepage": "https://github.com/attritionxd-oss/odin-project-hashmap#readme",
+  "bugs": {
+    "url": "https://github.com/attritionxd-oss/odin-project-hashmap/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/attritionxd-oss/odin-project-hashmap.git"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "author": "attritionxd-oss",
+  "type": "module",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
