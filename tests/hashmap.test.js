@@ -159,10 +159,10 @@ describe("hashmap", () => {
     });
 
     test.each([
-      ["Abc", "first", "first"],
-      ["cbA", "second", "second"],
-      ["tea", "third", "third"],
-      ["eat", "fourth", "fourth"],
+      ["Abc", "first"],
+      ["cbA", "second"],
+      ["tea", "third"],
+      ["eat", "fourth"],
     ])(".set(%s, %s) == %i", (key, value) => {
       map.set(key, value);
       expect(map.get(key)).toBe(value);
