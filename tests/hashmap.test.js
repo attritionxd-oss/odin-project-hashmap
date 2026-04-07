@@ -55,7 +55,7 @@ describe("project-required test suite", () => {
   });
 });
 
-describe.skip("hashmap", () => {
+describe("hashmap", () => {
   test("module exists", () => {
     expect(new HashMap()).toBeDefined();
   });
@@ -73,6 +73,7 @@ describe.skip("hashmap", () => {
       "has",
       "remove",
       "length",
+      "clear",
       "keys",
       "values",
       "entries",
@@ -227,6 +228,25 @@ describe.skip("hashmap", () => {
     test("returns 2 (no collision)", () => {
       map.set("x-ray", "invisible");
       expect(map.length()).toBe(3);
+    });
+  });
+
+  describe("clear()", () => {
+    const map = new HashMap();
+    test("invokes info when buckets are already clear", () => {
+      const consoleSpy = jest
+        .spyOn(console, "info")
+        .mockImplementation(() => {});
+
+      map.clear();
+      expect(consoleSpy).toHaveBeenCalledWith("Buckets are already empty.");
+    });
+
+    test("successfully clear buckets", () => {
+      map.set("apple", "red");
+      expect(map.length()).toBe(1);
+      map.clear();
+      expect(map.length()).toBe(0);
     });
   });
 

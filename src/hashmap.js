@@ -107,6 +107,14 @@ export default class HashMap {
     return this.#occupancy;
   }
 
+  clear() {
+    if (this.#occupancy === 0) console.info("Buckets are already empty.");
+    this.#occupancy = 0;
+    this.buckets = new Array(this.#capacity);
+    this.#keys = new Array(this.#capacity);
+    this.#values = new Array(this.#capacity);
+  }
+
   keys() {
     return this.#keys;
   }
