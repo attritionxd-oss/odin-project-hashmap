@@ -17,15 +17,16 @@ export default class HashMap {
     if (!key || key.length < 0) return;
     if (typeof key != "string")
       throw new Error("TypeError: key must be of type string");
-    let hashCode = 0;
-    const primeNumber = 31;
 
+    let h = 2166136261; // FNV offset basis
     for (let i = 0; i < key.length; i++) {
-      hashCode = primeNumber * hashCode + key.charCodeAt(i);
+      h ^= key.charCodeAt(i);
+      h = Math.imul(h, 16777619); // FNV prime
     }
 
-    const c = 0.6180339887;
-    return Math.floor(this.capacity * ((hashCode * c) % 1));
+    h ^= h >>> 16; // Mix high bits into low bits
+
+    return Math.abs(h) & (this.capacity - 1);
   }
 
   resize() {
