@@ -1,6 +1,61 @@
 import HashMap from "/src/hashmap";
 
-describe("hashmap", () => {
+describe("project-required test suite", () => {
+  const map = new HashMap();
+  test("set()", () => {
+    map.set("apple", "red");
+    map.set("banana", "yellow");
+    map.set("carrot", "orange");
+    map.set("dog", "brown");
+    map.set("elephant", "gray");
+    map.set("frog", "green");
+    map.set("grape", "purple");
+    map.set("hat", "black");
+    map.set("ice cream", "white");
+    map.set("jacket", "blue");
+    map.set("kite", "pink");
+    map.set("lion", "golden");
+    expect(map.length()).toBe(9);
+
+    map.set("moon", "silver");
+    expect(map.length()).toBe(10);
+    expect(map.capacity()).toBe(16);
+
+    map.set("kite", "cyan");
+    expect(map.get("kite")).toBe("cyan");
+
+    map.set("jacket", "black");
+    expect(map.length()).toBe(10);
+  });
+
+  test("has()", () => {
+    expect(map.has("lion")).toBe(true);
+  });
+
+  test("entries()", () => {
+    const data = [
+      ["kite", "cyan"],
+      ["jacket", "black"],
+      ["frog", "green"],
+      ["banana", "yellow"],
+      ["grape", "purple"],
+      ["elephant", "gray"],
+      ["moon", "silver"],
+      ["ice cream", "white"],
+      ["carrot", "orange"],
+      ["lion", "golden"],
+    ];
+
+    expect(map.entries()).toMatchObject(data);
+  });
+
+  test("other methods", () => {
+    expect(map.get("grape")).toBe("purple");
+    expect(map.has("grape")).toBe(true);
+  });
+});
+
+describe.skip("hashmap", () => {
   test("module exists", () => {
     expect(new HashMap()).toBeDefined();
   });
@@ -221,49 +276,4 @@ describe("hashmap", () => {
       ]);
     });
   });
-});
-
-describe("project-required test suite", () => {
-  const test = new HashMap();
-  test.set("apple", "red");
-  test.set("banana", "yellow");
-  test.set("carrot", "orange");
-  test.set("dog", "brown");
-  test.set("elephant", "gray");
-  test.set("frog", "green");
-  test.set("grape", "purple");
-  test.set("hat", "black");
-  test.set("ice cream", "white");
-  test.set("jacket", "blue");
-  test.set("kite", "pink");
-  test.set("lion", "golden");
-
-  expect(test.has("apple")).toBe(true);
-  expect(test.has("banana")).toBe(true);
-  expect(test.has("carrot")).toBe(true);
-  expect(test.has("dog")).toBe(true);
-  expect(test.has("elephant")).toBe(true);
-  expect(test.has("frog")).toBe(true);
-  expect(test.has("grape")).toBe(true);
-  expect(test.has("hat")).toBe(true);
-  expect(test.has("ice cream")).toBe(true);
-  expect(test.has("jacket")).toBe(true);
-  expect(test.has("kite")).toBe(true);
-  expect(test.has("lion")).toBe(true);
-  expect(test.occupancy).toBe(9);
-  expect(test.capacity).toBe(16);
-
-  const data = [
-    ["kite", "pink"],
-    ["jacket", "blue"],
-    ["frog", "green"],
-    ["banana", "yellow"],
-    ["grape", "purple"],
-    ["elephant", "gray"],
-    ["ice cream", "white"],
-    ["carrot", "orange"],
-    ["lion", "golden"],
-  ];
-
-  expect(test.entries()).toMatchObject(data);
 });

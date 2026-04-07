@@ -1,16 +1,16 @@
 export default class HashMap {
-  capacity;
-  occupancy;
+  #capacity;
+  #occupancy;
   #keys;
   #values;
 
   constructor() {
     this.loadFactor = 0.75;
-    this.occupancy = 0;
-    this.capacity = 16;
-    this.buckets = new Array(this.capacity);
-    this.#keys = new Array(this.capacity);
-    this.#values = new Array(this.capacity);
+    this.#occupancy = 0;
+    this.#capacity = 16;
+    this.buckets = new Array(this.#capacity);
+    this.#keys = new Array(this.#capacity);
+    this.#values = new Array(this.#capacity);
   }
 
   hash(key) {
@@ -26,7 +26,7 @@ export default class HashMap {
 
     h ^= h >>> 16; // Mix high bits into low bits
 
-    return Math.abs(h) & (this.capacity - 1);
+    return Math.abs(h) & (this.#capacity - 1);
   }
 
   resize() {
@@ -34,11 +34,11 @@ export default class HashMap {
     const oldKeys = this.#keys;
     const oldValues = this.#values;
 
-    this.capacity *= 2;
-    this.buckets = new Array(this.capacity);
-    this.#keys = new Array(this.capacity);
-    this.#values = new Array(this.capacity);
-    this.occupancy = 0;
+    this.#capacity *= 2;
+    this.buckets = new Array(this.#capacity);
+    this.#keys = new Array(this.#capacity);
+    this.#values = new Array(this.#capacity);
+    this.#occupancy = 0;
 
     for (let i = 0; i < oldKeys.length; i++) {
       const key = oldKeys[i];
@@ -53,13 +53,13 @@ export default class HashMap {
   set(key, value) {
     if (!key || !value) throw new Error("ArgError: missing arguments");
 
-    if (this.occupancy / this.capacity >= this.loadFactor) {
+    if (this.#occupancy / this.#capacity >= this.loadFactor) {
       console.log("resizing buckets");
       this.resize();
     }
     const hashedKey = this.hash(key);
 
-    if (!this.#keys[hashedKey]) this.occupancy++;
+    if (!this.#keys[hashedKey]) this.#occupancy++;
     this.#keys[hashedKey] = key;
     this.#values[hashedKey] = value;
     this.buckets[hashedKey] = value;
@@ -96,7 +96,7 @@ export default class HashMap {
       this.#keys[index] = undefined;
       this.#values[index] = undefined;
       this.buckets[index] = undefined;
-      this.occupancy--;
+      this.#occupancy--;
       return true;
     } else {
       return false;
@@ -104,7 +104,7 @@ export default class HashMap {
   }
 
   length() {
-    return this.occupancy;
+    return this.#occupancy;
   }
 
   keys() {
@@ -123,5 +123,9 @@ export default class HashMap {
 
   actualOccupancy() {
     return this.buckets.filter((bucket) => !!bucket).length;
+  }
+
+  capacity() {
+    return this.#capacity;
   }
 }
