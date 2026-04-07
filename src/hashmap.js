@@ -29,7 +29,7 @@ export default class HashMap {
     return Math.abs(h) & (this.#capacity - 1);
   }
 
-  resize() {
+  #resize() {
     // trigger resize then rehash
     const oldKeys = this.#keys;
     const oldValues = this.#values;
@@ -55,7 +55,7 @@ export default class HashMap {
 
     if (this.#occupancy / this.#capacity >= this.loadFactor) {
       console.log("resizing buckets");
-      this.resize();
+      this.#resize();
     }
     const hashedKey = this.hash(key);
 
