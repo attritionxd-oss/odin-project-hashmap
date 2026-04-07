@@ -125,8 +125,8 @@ export default class HashMap {
 
   entries() {
     return this.#keys
-      .map((key) => [key, this.buckets[this.hash(key)]])
-      .filter((entry) => !!entry);
+      .filter((entry) => !!entry)
+      .map((key) => [key, this.buckets[this.hash(key)]]);
   }
 
   actualOccupancy() {

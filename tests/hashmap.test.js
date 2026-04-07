@@ -52,6 +52,14 @@ describe("project-required test suite", () => {
   test("other methods", () => {
     expect(map.get("grape")).toBe("purple");
     expect(map.has("grape")).toBe(true);
+
+    expect(map.remove("moon")).toBe(true);
+    expect(map.has("moon")).toBe(false);
+    expect(map.length()).toBe(9);
+
+    expect(map.keys().filter((i) => !!i).length).toBe(9);
+    expect(map.values().filter((i) => !!i).length).toBe(9);
+    expect(map.entries().filter((i) => !!i).length).toBe(9);
   });
 });
 
