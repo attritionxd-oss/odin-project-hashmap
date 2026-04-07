@@ -64,6 +64,7 @@ export default class HashMap {
     this.#values[hashedKey] = value;
     this.buckets[hashedKey] = value;
   }
+
   get(key) {
     if (!key) throw new Error("ArgError: missing key argument");
     const index = this.hash(key);
