@@ -3,6 +3,7 @@ export default class HashMap {
   occupancy;
   #keys;
   #values;
+
   constructor() {
     this.loadFactor = 0.75;
     this.occupancy = 0;
@@ -11,6 +12,7 @@ export default class HashMap {
     this.#keys = new Array(this.capacity);
     this.#values = new Array(this.capacity);
   }
+
   hash(key) {
     if (!key || key.length < 0) return;
     if (typeof key != "string")
@@ -25,6 +27,7 @@ export default class HashMap {
     const c = 0.6180339887;
     return Math.floor(this.capacity * ((hashCode * c) % 1));
   }
+
   resize() {
     // trigger resize then rehash
     const oldKeys = this.#keys;
@@ -45,6 +48,7 @@ export default class HashMap {
       }
     }
   }
+
   set(key, value) {
     if (!key || !value) throw new Error("ArgError: missing arguments");
 
@@ -68,6 +72,7 @@ export default class HashMap {
 
     return !this.buckets[index] ? null : this.buckets[index];
   }
+
   has(key) {
     if (!key) throw new Error("ArgError: missing key argument");
     const index = this.hash(key);
@@ -77,6 +82,7 @@ export default class HashMap {
     const keyDefined = !!this.buckets[index];
     return keyDefined;
   }
+
   remove(key) {
     if (!key) throw new Error("ArgError: missing key argument");
     const index = this.hash(key);
@@ -95,20 +101,25 @@ export default class HashMap {
       return false;
     }
   }
+
   length() {
     return this.occupancy;
   }
+
   keys() {
     return this.#keys;
   }
+
   values() {
     return this.#values;
   }
+
   entries() {
     return this.#keys
       .map((key) => [key, this.buckets[this.hash(key)]])
       .filter((entry) => !!entry);
   }
+
   actualOccupancy() {
     return this.buckets.filter((bucket) => !!bucket).length;
   }
