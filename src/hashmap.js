@@ -65,32 +65,30 @@ export default class HashMap {
     this.buckets[hashedKey] = value;
   }
 
-  get(key) {
-    if (!key) throw new Error("ArgError: missing key argument");
+  #index(key) {
     const index = this.hash(key);
     if (index < 0 || index >= this.buckets.length) {
       throw new Error("Trying to access index out of bounds");
     }
+    return index;
+  }
 
+  get(key) {
+    if (!key) throw new Error("ArgError: missing key argument");
+    const index = this.#index(key);
     return !this.buckets[index] ? null : this.buckets[index];
   }
 
   has(key) {
     if (!key) throw new Error("ArgError: missing key argument");
-    const index = this.hash(key);
-    if (index < 0 || index >= this.buckets.length) {
-      throw new Error("Trying to access index out of bounds");
-    }
+    const index = this.#index(key);
     const keyDefined = !!this.buckets[index];
     return keyDefined;
   }
 
   remove(key) {
     if (!key) throw new Error("ArgError: missing key argument");
-    const index = this.hash(key);
-    if (index < 0 || index >= this.buckets.length) {
-      throw new Error("Trying to access index out of bounds");
-    }
+    const index = this.#index(key);
 
     const keyDefined = !!this.buckets[index];
     if (keyDefined) {
